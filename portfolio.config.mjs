@@ -5,9 +5,9 @@ export const profile = {
   role: 'Software Developer & Technology Consultant',
   brand: 'Ramdren',
   github: 'https://github.com/ArTiCCaLt',
-  email: '',
-  whatsapp: '', // URL completa https://wa.me/... confirmada por Diego.
-  linkedin: '',
+  email: 'darm2662@gmail.com',
+  whatsapp: 'https://wa.me/50762764967', // URL completa https://wa.me/... confirmada por Diego.
+  linkedin: 'https://linkedin.com/in/diegorangelm',
   cv: '', // Ruta a un PDF estático cuando esté disponible.
 };
 
