@@ -1,0 +1,50 @@
+---
+import type { Project } from '../data/projects';
+import ProjectVisual from './ProjectVisual.astro';
+interface Props { project: Project; }
+const { project } = Astro.props;
+---
+<article class:list={['project-card', { 'project-featured': project.slug === 'carenest' }]} aria-labelledby={`${project.slug}-title`}>
+  <div class="project-content">
+    <div class="project-meta"><span class="project-number">{project.number}</span><span>{project.category}</span></div>
+    <h3 id={`${project.slug}-title`}>{project.name}</h3>
+    <p class="project-subtitle">{project.subtitle}</p>
+    <p class="project-description">{project.description}</p>
+    <ul class="tags" aria-label={`Tecnologías de ${project.name}`}>{project.stack.map((tech) => <li>{tech}</li>)}</ul>
+    <p class="project-status"><span aria-hidden="true"></span>{project.status}</p>
+    <div class="project-actions">
+      <a class="text-link" href={`/projects/${project.slug}/`}>Explorar {project.name} <span class="arrow" aria-hidden="true">↗</span></a>
+      {project.liveUrl && <a class="live-link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">Abrir aplicación <span aria-hidden="true">↗</span><span class="sr-only"> (nueva pestaña)</span></a>}
+    </div>
+  </div>
+  <div class="project-visual"><ProjectVisual project={project.slug} /></div>
+</article>
+<style>
+  .project-card { display: grid; grid-template-columns: 1fr 1.1fr; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }
+  .project-card + .project-card { margin-top: var(--space-6); }
+  .project-featured { grid-template-columns: 1fr; }
+  .project-featured .project-content { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--space-8); }
+  .project-featured .project-meta, .project-featured h3, .project-featured .project-subtitle { grid-column: 1; }
+  .project-featured .project-meta { grid-row: 1; }
+  .project-featured h3 { grid-row: 2; }
+  .project-featured .project-subtitle { grid-row: 3; }
+  .project-featured .project-description { grid-column: 2; grid-row: 1 / span 2; align-self: end; margin-top: 0; }
+  .project-featured .tags { grid-column: 2; grid-row: 3; align-self: start; }
+  .project-featured .project-status { grid-column: 1; grid-row: 4; align-self: center; margin-top: 0; }
+  .project-featured .project-actions { grid-column: 2; grid-row: 4; }
+  .project-content { padding: clamp(1.5rem, 3vw, 2.6rem); }
+  .project-meta { display: flex; align-items: center; gap: var(--space-3); font-size: 0.67rem; color: var(--color-muted); }
+  .project-number { font-family: var(--font-mono); padding-right: var(--space-3); border-right: 1px solid var(--color-border); }
+  h3 { font-size: 2.4rem; letter-spacing: -0.05em; margin-top: var(--space-5); }
+  .project-subtitle { margin-top: var(--space-3); font-size: 1.02rem; font-weight: 550; max-width: 23rem; line-height: 1.5; }
+  .project-description { margin-top: var(--space-4); color: var(--color-muted); font-size: 0.83rem; }
+  .tags { margin-top: var(--space-5); }
+  .project-status { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-5); font-size: 0.65rem; color: var(--color-muted); }
+  .project-status > span { width: 5px; height: 5px; border-radius: 50%; background: var(--color-primary); }
+  .project-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-5); padding-top: var(--space-3); }
+  .project-actions .text-link { font-size: 0.82rem; }
+  .live-link { color: var(--color-muted); font-size: 0.72rem; padding-block: var(--space-3); text-decoration: none; }
+  .live-link:hover { color: var(--color-primary); text-decoration: underline; }
+  .project-visual { min-width: 0; }
+  @media (max-width: 760px) { .project-card { grid-template-columns: 1fr; } .project-featured .project-content { display: block; } .project-featured .project-description, .project-featured .project-status { margin-top: var(--space-5); } h3 { font-size: 2.2rem; } }
+</style>

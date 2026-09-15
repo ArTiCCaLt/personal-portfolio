@@ -1,0 +1,38 @@
+---
+import { profile } from '../../portfolio.config.mjs';
+---
+<section class="contact-section section" id="contacto" aria-labelledby="contact-title">
+  <div class="container">
+    <p class="section-label">07 / Conversemos</p>
+    <div class="contact-grid">
+      <h2 id="contact-title">¿Un proyecto<br />o un problema<br /><span>técnico?</span></h2>
+      <div class="contact-copy">
+        <p>Si necesitas desarrollar una aplicación, implementar una funcionalidad o resolver un problema en un sistema existente, cuéntame qué necesitas.</p>
+        <p>Si está dentro de mi experiencia, te indicaré cómo considero que podemos abordarlo.</p>
+        <div class="contact-actions">
+          {profile.email && <a class="button button-primary" href={`mailto:${profile.email}`}>Escríbeme <span aria-hidden="true">↗</span></a>}
+          {profile.whatsapp && <a class="contact-link" href={profile.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp <span aria-hidden="true">↗</span><span class="sr-only"> (nueva pestaña)</span></a>}
+          {profile.linkedin && <a class="contact-link" href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span><span class="sr-only"> (nueva pestaña)</span></a>}
+          <a class="contact-link" href={profile.github} target="_blank" rel="noopener noreferrer">Mi perfil en GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (nueva pestaña)</span></a>
+        </div>
+        <p class="contact-availability">Disponible para proyectos freelance, colaboraciones remotas y nuevas oportunidades profesionales.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .contact-section { background: var(--color-dark); color: var(--color-on-dark); }
+  .section-label { color: var(--color-muted-dark); margin-bottom: var(--space-6); }
+  .contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--space-8); }
+  h2 { font-size: clamp(2.8rem, 5.5vw, 4.8rem); }
+  h2 span { color: #8fb4ff; }
+  .contact-copy { padding-top: var(--space-2); }
+  .contact-copy > p { color: var(--color-muted-dark); font-size: 0.91rem; }
+  .contact-copy > p + p { margin-top: var(--space-4); }
+  .contact-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-4) var(--space-5); margin-top: var(--space-6); }
+  .contact-link { display: flex; align-items: center; gap: var(--space-4); min-height: 44px; font-size: 0.83rem; text-decoration: none; border-bottom: 1px solid var(--color-border-dark); }
+  .contact-link:hover { border-color: var(--color-on-dark); }
+  .contact-copy .contact-availability { font-size: 0.68rem; margin-top: var(--space-6); max-width: 25rem; }
+  a:focus-visible { outline-color: #8fb4ff; }
+  @media (max-width: 760px) { .contact-grid { grid-template-columns: 1fr; gap: var(--space-6); } }
+</style>

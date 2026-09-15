@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import ProjectVisual from '../../components/ProjectVisual.astro';
+import { projects } from '../../data/projects';
+const project = projects[1];
+---
+<BaseLayout title="Vértice11 — Análisis futbolístico | Diego Rangel" description="Plataforma en desarrollo para el análisis estructurado de partidos de fútbol con React, TypeScript, Cloudflare Workers y D1.">
+  <article class="container project-page">
+    <a class="breadcrumb" href="/#proyectos"><span aria-hidden="true">←</span> Volver a proyectos</a>
+    <p class="section-label">Proyecto personal · En desarrollo activo</p>
+    <h1>Vértice11</h1>
+    <p class="lead">Una plataforma para estructurar información y evaluar partidos de fútbol.</p>
+    <ul class="tags" aria-label="Tecnologías de Vértice11">{project.stack.map((tech) => <li>{tech}</li>)}</ul>
+    <div class="page-actions"><a class="button button-outline" href="/#proyectos">Ver todos los proyectos <span aria-hidden="true">↗</span></a></div>
+    <div class="content-grid">
+      <section aria-labelledby="vertice-approach"><h2 id="vertice-approach">Del dato a una evaluación estructurada.</h2><p>La plataforma combina entrada asistida de información, persistencia de evaluaciones y un motor de análisis para apoyar la toma de decisiones.</p><p>Es un proyecto en desarrollo activo que amplía mi trabajo hacia otro dominio: el análisis futbolístico.</p></section>
+      <section aria-labelledby="vertice-architecture"><h2 id="vertice-architecture">Base técnica</h2><ul><li>Frontend con React y TypeScript.</li><li>API implementada con Cloudflare Workers.</li><li>Persistencia mediante Cloudflare D1.</li><li>Pruebas automatizadas y entornos de desarrollo y staging.</li></ul></section>
+    </div>
+    <div class="model"><ProjectVisual project="vertice11" /></div>
+  </article>
+  <ContactCTA />
+</BaseLayout>
+<style>.model { max-width: 45rem; margin: var(--space-8) auto 0; border-radius: var(--radius-md); overflow: hidden; }</style>

@@ -1,0 +1,40 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import { experience } from '../data/experience';
+---
+<section class="experience section" id="experiencia" aria-labelledby="experience-title">
+  <div class="container">
+    <SectionHeader label="02 / Experiencia aplicada" title="Ingeniería en sistemas reales." id="experience-title" description="Una selección de problemas que he abordado en software empresarial." />
+    <div class="experience-list">
+      {experience.map((item, index) => <details>
+        <summary>
+          <span class="experience-number" aria-hidden="true">0{index + 1}</span>
+          <span class="experience-main"><span class="experience-area">{item.area}</span><span class="experience-name">{item.title}</span><span class="experience-summary">{item.summary}</span></span>
+          <span class="expand-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="experience-detail"><div><h3>El problema</h3><p>{item.problem}</p></div><div><h3>Mi trabajo</h3><p>{item.work}</p><ul class="tags" aria-label="Tecnologías utilizadas">{item.stack.map((tech) => <li>{tech}</li>)}</ul></div></div>
+      </details>)}
+    </div>
+    <p class="confidentiality">Casos profesionales anonimizados para respetar la confidencialidad de los proyectos.</p>
+  </div>
+</section>
+<style>
+  .experience { background: var(--color-surface-alt); }
+  details { border-top: 1px solid var(--color-border); }
+  details:last-child { border-bottom: 1px solid var(--color-border); }
+  summary { display: grid; grid-template-columns: 2.5rem 1fr 2rem; gap: var(--space-5); align-items: center; list-style: none; cursor: pointer; padding-block: var(--space-6); }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover .experience-name { color: var(--color-primary); }
+  .experience-number { align-self: start; padding-top: var(--space-1); font: 400 0.8rem/1.5 var(--font-mono); color: var(--color-muted); }
+  .experience-area { display: block; font-size: 0.67rem; color: var(--color-muted); margin-bottom: var(--space-2); }
+  .experience-name { display: block; font-size: clamp(1.2rem, 2.2vw, 1.7rem); font-weight: 600; line-height: 1.3; letter-spacing: -0.035em; }
+  .experience-summary { display: block; color: var(--color-muted); font-size: 0.82rem; margin-top: var(--space-3); max-width: 45rem; }
+  .expand-icon { color: var(--color-primary); font-size: 1.8rem; font-weight: 300; justify-self: end; }
+  details[open] .expand-icon { transform: rotate(45deg); }
+  .experience-detail { display: grid; grid-template-columns: 1fr 1.5fr; gap: var(--space-7); padding: 0 var(--space-8) var(--space-6) 4rem; }
+  .experience-detail h3 { font-size: 0.85rem; margin-bottom: var(--space-3); }
+  .experience-detail p { color: var(--color-muted); font-size: 0.85rem; }
+  .tags { margin-top: var(--space-4); }
+  .confidentiality { font-size: 0.68rem; color: var(--color-muted); margin-top: var(--space-5); }
+  @media (max-width: 760px) { summary { grid-template-columns: 1.2rem 1fr 1rem; gap: var(--space-3); } .experience-detail { grid-template-columns: 1fr; padding: 0 0 var(--space-6) 2rem; gap: var(--space-5); } }
+</style>

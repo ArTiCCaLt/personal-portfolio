@@ -1,0 +1,50 @@
+name: Portfolio CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static-build:
+    # El repositorio público y el runner estándar mantienen CI en el plan gratuito.
+    if: github.event.repository.private == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      ASTRO_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          package-manager-cache: false
+      - run: npm ci --no-audit --no-fund
+      - name: Build sin dominio confirmado
+        run: |
+          npm run build
+          node scripts/check-seo.mjs preview
+      - name: Build de producción (dominio ficticio de prueba)
+        env:
+          SITE_URL: https://portfolio-ci.invalid
+          CF_PAGES_BRANCH: main
+        run: |
+          npm run build
+          node scripts/check-seo.mjs production
+      - name: Preview no indexable con canonical de producción
+        env:
+          SITE_URL: https://portfolio-ci.invalid
+          CF_PAGES_BRANCH: feat/v0.1-portfolio
+        run: |
+          npm run build
+          node scripts/check-seo.mjs preview
