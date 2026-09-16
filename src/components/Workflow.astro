@@ -1,0 +1,20 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import { workflow } from '../data/services';
+---
+<section class="workflow section" aria-labelledby="workflow-title">
+  <div class="container">
+    <SectionHeader label="04 / Cómo trabajo" title="Un proceso claro. De principio a fin." id="workflow-title" />
+    <ol>{workflow.map((step, index) => <li><span class="step-number" aria-hidden="true">0{index + 1}</span><h3>{step.title}</h3><p>{step.description}</p></li>)}</ol>
+  </div>
+</section>
+<style>
+  .workflow { background: var(--color-surface); border-block: 1px solid var(--color-border); }
+  ol { display: grid; grid-template-columns: repeat(5, 1fr); padding: 0; list-style: none; }
+  li { border-top: 1px solid var(--color-border); padding-top: var(--space-5); padding-right: var(--space-5); position: relative; }
+  li::before { content: ''; position: absolute; width: 5px; height: 5px; border-radius: 50%; background: var(--color-primary); top: -3px; left: 0; }
+  .step-number { font: 400 0.7rem/1.5 var(--font-mono); color: var(--color-primary); }
+  h3 { margin-block: var(--space-4) var(--space-3); font-size: 1.1rem; }
+  p { color: var(--color-muted); font-size: 0.78rem; }
+  @media (max-width: 760px) { ol { grid-template-columns: 1fr; } li { padding: 0 0 var(--space-6) var(--space-6); border-top: 0; border-left: 1px solid var(--color-border); } li:last-child { padding-bottom: 0; } li::before { top: 8px; left: -3px; } h3 { margin-block: var(--space-2); } }
+</style>

@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ValueProposition from '../components/ValueProposition.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Experience from '../components/Experience.astro';
+import Services from '../components/Services.astro';
+import Workflow from '../components/Workflow.astro';
+import Technologies from '../components/Technologies.astro';
+import About from '../components/About.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { projects } from '../data/projects';
+---
+<BaseLayout>
+  <Hero />
+  <ValueProposition />
+  <section class="section container" id="proyectos" aria-labelledby="projects-title">
+    <SectionHeader label="01 / Proyectos seleccionados" title="Ideas llevadas a software." id="projects-title" description="Productos propios con lógica de negocio, decisiones técnicas y problemas reales que resolver." />
+    {projects.map((project) => <ProjectCard project={project} />)}
+  </section>
+  <Experience />
+  <Services />
+  <Workflow />
+  <Technologies />
+  <About />
+  <ContactCTA />
+</BaseLayout>

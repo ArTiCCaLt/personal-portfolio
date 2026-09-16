@@ -1,0 +1,9 @@
+---
+import { getImage } from 'astro:assets';
+import { media } from '../data/media';
+const board = await getImage({ src: media.wordmarkBoard, width: 1448, format: 'webp', quality: 88 });
+---
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="74 727 357 76" width="200" height="43" role="img" aria-label="Ramdren · Software Engineering">
+  <image href={board.src} x="0" y="0" width="1448" height="1086" />
+</svg>
+<style>svg { width: 200px; height: auto; overflow: hidden; }</style>

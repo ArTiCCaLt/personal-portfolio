@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import ProjectVisual from '../../components/ProjectVisual.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import { projects } from '../../data/projects';
+import { media } from '../../data/media';
+const project = projects[0];
+---
+<BaseLayout title="CareNest — Gestión médica familiar | Diego Rangel" description="MVP de una PWA de gestión médica familiar con perfiles, permisos Owner/Editor/Viewer, fichas de emergencia y auditoría. React, TypeScript y Firebase.">
+  <article class="container project-page">
+    <a class="breadcrumb" href="/#proyectos"><span aria-hidden="true">←</span> Volver a proyectos</a>
+    <p class="section-label">Proyecto personal · MVP funcional · v0.1.0</p>
+    <h1>CareNest</h1>
+    <p class="lead">Gestión médica familiar segura y colaborativa. Información crítica cuando importa el tiempo.</p>
+    <ul class="tags" aria-label="Tecnologías de CareNest">{project.stack.map((tech) => <li>{tech}</li>)}</ul>
+    <div class="page-actions"><a class="button button-primary" href={project.liveUrl} target="_blank" rel="noopener noreferrer">Abrir CareNest <span aria-hidden="true">↗</span><span class="sr-only"> (nueva pestaña)</span></a><a class="button button-outline" href="#alcance">Conocer el alcance</a></div>
+    <div class="content-grid">
+      <section aria-labelledby="carenest-problem"><h2 id="carenest-problem">La información de salud, en un solo lugar.</h2><p>CareNest es una Progressive Web App que centraliza información médica familiar y permite consultarla o administrarla mediante permisos controlados.</p><p>Desarrollé el MVP con React, TypeScript y Vite. Firebase actúa como Backend as a Service: Authentication para la identidad y Firestore para los datos, con autorización crítica en Security Rules.</p><p>La aplicación se publica en Cloudflare Pages y puede instalarse como PWA.</p></section>
+      <section aria-labelledby="carenest-features"><h2 id="carenest-features">Qué permite hacer</h2><ul><li>Crear perfiles y registros médicos: alergias, condiciones, medicamentos, tratamientos, vacunas, cirugías y notas.</li><li>Consultar una ficha de emergencia e imprimirla o guardarla como PDF desde el navegador.</li><li>Compartir acceso mediante invitaciones vinculadas al email y roles Owner, Editor y Viewer.</li><li>Revisar la actividad registrada y revocar accesos sin eliminar cuentas.</li></ul></section>
+    </div>
+    <div class="model"><ProjectVisual project="carenest" /></div>
+    {media.carenestAccess && <figure class="access-example"><Image src={media.carenestAccess} alt="Administración de accesos familiares en CareNest, con roles, invitaciones pendientes y actividad, usando datos ficticios." widths={[480, 960, 1440]} sizes="(max-width: 760px) 90vw, 70vw" loading="lazy" /><figcaption>Accesos familiares, invitaciones y trazabilidad. Todos los datos mostrados son ficticios y no corresponden a pacientes reales.</figcaption></figure>}
+    <section class="project-note" id="alcance" aria-labelledby="scope-title"><h2 id="scope-title">Una primera versión con un alcance claro.</h2><p>El MVP prioriza perfiles, colaboración, permisos y trazabilidad. La experiencia instalable es una PWA. Los adjuntos médicos, recordatorios, calendario y soporte general de múltiples familias quedan fuera de esta versión.</p><p>Firebase App Check está integrado y configurado con reCAPTCHA Enterprise.</p></section>
+  </article>
+  <ContactCTA />
+</BaseLayout>
+<style>.model { max-width: 64rem; margin: var(--space-8) auto 0; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; } .project-note p + p { margin-top: var(--space-4); } .access-example { max-width: 64rem; margin: var(--space-6) auto 0; } .access-example img { width: 100%; border: 1px solid var(--color-border); border-radius: var(--radius-md); } figcaption { font-size: 0.72rem; color: var(--color-muted); margin-top: var(--space-3); }</style>

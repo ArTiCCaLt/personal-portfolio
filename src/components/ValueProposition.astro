@@ -1,0 +1,28 @@
+<section class="value section" aria-labelledby="value-title">
+  <div class="container value-grid">
+    <div>
+      <p class="section-label">Una visión completa del software</p>
+      <h2 id="value-title">De la interfaz<br />a la lógica<br /><span>del negocio.</span></h2>
+    </div>
+    <div class="value-copy">
+      <p>Un producto tiene que funcionar más allá de la pantalla. Mi trabajo conecta frontend, backend, bases de datos, seguridad, integraciones y despliegue.</p>
+      <p>Puedo incorporarme a un sistema existente para resolver un problema o acompañar una solución desde sus primeras decisiones técnicas hasta una versión funcional.</p>
+      <ul aria-label="Problemas de negocio que abordo">
+        <li>Usuarios y permisos</li><li>Flujos de trabajo</li><li>Persistencia y auditoría</li><li>Integración y automatización</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<style>
+  .value { margin-top: var(--space-7); background: var(--color-dark); color: var(--color-on-dark); }
+  .value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  .section-label { color: var(--color-muted-dark); margin-bottom: var(--space-5); }
+  h2 { font-size: clamp(2.6rem, 4.5vw, 4rem); }
+  h2 span { color: #8fb4ff; }
+  .value-copy { padding-top: var(--space-7); }
+  .value-copy p { color: var(--color-muted-dark); font-size: 0.96rem; }
+  .value-copy p + p { margin-top: var(--space-4); }
+  ul { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--space-5); margin-top: var(--space-6); padding: 0; list-style: none; }
+  li { border-top: 1px solid var(--color-border-dark); padding-block: var(--space-3); font-size: 0.78rem; }
+  @media (max-width: 760px) { .value-grid { grid-template-columns: 1fr; gap: var(--space-6); } .value-copy { padding: 0; } }
+</style>
