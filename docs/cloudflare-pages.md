@@ -51,6 +51,20 @@ npm run build
 
 No copiar el subdominio de ejemplo como si fuera la dirección final.
 
+## Preview del PR antes de fusionar
+
+Mientras la implementación esté en `feat/v0.1-portfolio`, mantener `main` como rama de producción. Si `main` todavía solo contiene el README inicial, el primer build de producción fallará con `ENOENT` al buscar `package.json`; ese intento no valida el código de la rama del PR.
+
+1. Conservar la configuración de build de la tabla anterior.
+2. En **Settings → Builds / Builds & deployments → Branch control**, permitir previews de `feat/v0.1-portfolio`, mediante **All non-Production branches** o una regla **Custom branches** que incluya esa rama.
+3. Un nuevo commit normal en la rama del PR activa el preview tras conectar GitHub. Si ya existe un despliegue de esa rama, se puede reintentar ese despliegue. Reintentar el build fallido de `main` solo volverá a compilar el README.
+4. En **Deployments**, confirmar que el despliegue corresponde a **Preview**, a `feat/v0.1-portfolio` y al head actual del PR #1. Usar únicamente la URL que Cloudflare muestre o publique en GitHub.
+5. Cuando Cloudflare confirme el origen de producción, establecer el mismo `SITE_URL` en **Production** y **Preview**, sin comillas ni barra final, y reconstruir el preview. No sobrescribir `CF_PAGES_BRANCH`: permite mantener `noindex` en las ramas secundarias aunque compartan el canonical de producción.
+6. Revisar escritorio, móvil, rutas directas, 404, contactos, teclado, SEO y headers en ese preview antes de recomendar salir de Draft.
+7. La publicación de producción queda pendiente de una autorización explícita para fusionar el PR. Mantener `main` sin cambios durante la revisión.
+
+Referencias oficiales: [previews](https://developers.cloudflare.com/pages/configuration/preview-deployments/) y [control de ramas](https://developers.cloudflare.com/pages/configuration/branch-build-controls/).
+
 ## Validación de producción
 
 - Abrir la homepage y las dos rutas `/projects/.../` directamente, incluida una recarga.
