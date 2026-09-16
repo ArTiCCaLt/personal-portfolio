@@ -11,11 +11,11 @@ try {
 
 if (!profile.email && !profile.whatsapp) problems.push('Falta un email o WhatsApp confirmado para contacto directo.');
 if (profile.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profile.email)) problems.push('Formato de email no válido.');
-for (const [key, host] of [['whatsapp', 'wa.me'], ['linkedin', 'www.linkedin.com']]) {
+for (const [key, hosts] of [['whatsapp', ['wa.me']], ['linkedin', ['linkedin.com', 'www.linkedin.com']]]) {
   if (!profile[key]) continue;
   try {
     const url = new URL(profile[key]);
-    if (url.protocol !== 'https:' || url.hostname !== host || url.pathname === '/' || url.username || url.password) problems.push(`Revisar URL de ${key}.`);
+    if (url.protocol !== 'https:' || !hosts.includes(url.hostname) || url.pathname === '/' || url.username || url.password) problems.push(`Revisar URL de ${key}.`);
   } catch { problems.push(`URL de ${key} no válida.`); }
 }
 
