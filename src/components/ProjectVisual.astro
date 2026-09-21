@@ -1,0 +1,53 @@
+---
+import { Image } from 'astro:assets';
+import { media } from '../data/media';
+interface Props { project: 'carenest' | 'vertice11'; }
+const { project } = Astro.props;
+---
+{project === 'carenest' ? (
+  media.carenest ? <figure class="screenshot">
+    <Image src={media.carenest} alt="Perfil médico de demostración de CareNest: datos de emergencia y registros médicos con información ficticia." widths={[480, 800, 1200, 1600]} sizes="(max-width: 760px) 90vw, 70vw" loading="lazy" />
+    <figcaption>Todos los datos mostrados en el entorno de demostración son ficticios y no corresponden a pacientes reales.</figcaption>
+  </figure> : <div class="care-visual">
+    <div class="visual-caption"><span>CareNest</span><span>Modelo de acceso</span></div>
+    <p class="visual-headline">Cuidar empieza<br />por tener la información.</p>
+    <div class="family-model">
+      <div class="family-node"><span class="node-mark" aria-hidden="true">+</span><span>Información médica familiar<small>Perfiles · Registros · Ficha de emergencia</small></span></div>
+      <div class="connector" aria-hidden="true"></div>
+      <div class="roles"><div><strong>Owner</strong><span>Administra</span></div><div><strong>Editor</strong><span>Modifica</span></div><div><strong>Viewer</strong><span>Consulta</span></div></div>
+    </div>
+    <p class="visual-note">Permisos controlados. Actividad registrada.</p>
+  </div>
+) : <div class="vertice-visual">
+  <div class="visual-caption"><span>Vértice11</span><span>Flujo de evaluación</span></div>
+  <p class="visual-headline">Del dato<br />al análisis.</p>
+  <ol class="analysis-flow"><li><span>01</span>Entrada asistida</li><li><span>02</span>Motor de análisis</li><li><span>03</span>Evaluaciones guardadas</li></ol>
+  <p class="visual-note">Frontend · Worker API · D1</p>
+</div>}
+<style>
+  .care-visual, .vertice-visual { padding: clamp(1.3rem, 3vw, 3rem); height: 100%; display: flex; flex-direction: column; min-height: 27rem; }
+  .care-visual { background: var(--color-tint); }
+  .vertice-visual { background: var(--color-dark); color: var(--color-on-dark); }
+  .visual-caption { display: flex; justify-content: space-between; gap: var(--space-4); font: 500 0.65rem/1.5 var(--font-mono); }
+  .visual-caption span:last-child { opacity: 0.7; }
+  .visual-headline { margin-top: var(--space-6); font-size: clamp(1.5rem, 2.5vw, 2.1rem); font-weight: 550; letter-spacing: -0.045em; line-height: 1.2; }
+  .family-model { margin-block: var(--space-6); }
+  .family-node { display: flex; align-items: center; gap: var(--space-3); background: var(--color-surface); border: 1px solid #c3d2f5; padding: var(--space-4); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); font-size: 0.8rem; font-weight: 650; }
+  .node-mark { background: var(--color-primary); color: white; display: grid; place-items: center; width: 2rem; height: 2rem; flex-shrink: 0; border-radius: var(--radius-sm); font-size: 1.25rem; font-weight: 400; }
+  .family-node small { display: block; color: var(--color-muted); font-size: 0.63rem; font-weight: 400; margin-top: var(--space-1); }
+  .connector { height: 1.5rem; width: 1px; margin-inline: auto; background: #91a9d8; }
+  .roles { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #91a9d8; }
+  .roles > div { position: relative; text-align: center; padding-top: var(--space-4); }
+  .roles > div::before { content: ''; position: absolute; width: 1px; height: 0.65rem; background: #91a9d8; top: 0; left: 50%; }
+  .roles strong { display: block; font-size: 0.78rem; font-weight: 650; }
+  .roles span { display: block; font-size: 0.67rem; color: var(--color-muted); margin-top: var(--space-1); }
+  .visual-note { margin-top: auto; padding-top: var(--space-4); font: 400 0.66rem/1.5 var(--font-mono); color: var(--color-muted); }
+  .vertice-visual .visual-note { color: var(--color-muted-dark); }
+  .analysis-flow { list-style: none; padding: 0; margin-top: var(--space-5); }
+  .analysis-flow li { border-bottom: 1px solid var(--color-border-dark); padding-block: 0.65rem; display: flex; align-items: center; gap: var(--space-4); font-size: 0.85rem; }
+  .analysis-flow li span { color: #8fb4ff; font: 400 0.65rem/1.5 var(--font-mono); }
+  .screenshot { display: flex; flex-direction: column; justify-content: center; height: 100%; background: var(--color-tint); padding: var(--space-5); }
+  .screenshot img { width: 100%; border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+  figcaption { margin-top: var(--space-4); font-size: 0.68rem; color: var(--color-muted); }
+  @media (max-width: 760px) { .care-visual, .vertice-visual { min-height: auto; padding: var(--space-5); } .visual-headline { font-size: 1.8rem; } .visual-note { margin-top: var(--space-3); } }
+</style>

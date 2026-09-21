@@ -1,0 +1,76 @@
+---
+import Brand from './Brand.astro';
+const links = [
+  ['Proyectos', '/#proyectos'], ['Experiencia', '/#experiencia'],
+  ['Servicios', '/#servicios'], ['Sobre mí', '/#sobre-mi'],
+];
+---
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="Diego Rangel · Ramdren, inicio">
+      <Brand />
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Abrir navegación">
+      <span class="menu-lines" aria-hidden="true"><span></span><span></span></span>
+      <span>Menú</span>
+    </button>
+    <nav id="site-navigation" aria-label="Navegación principal">
+      {links.map(([label, href]) => <a class="nav-link" href={href}>{label}</a>)}
+      <a class="nav-cta" href="/#contacto">Hablemos <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+</header>
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const button = header?.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = header?.querySelector<HTMLElement>('nav');
+  if (header && button && nav) {
+    header.dataset.enhanced = 'true';
+    const close = (restoreFocus = false) => {
+      button.setAttribute('aria-expanded', 'false');
+      button.setAttribute('aria-label', 'Abrir navegación');
+      header.dataset.open = 'false';
+      if (restoreFocus) button.focus();
+    };
+    button.addEventListener('click', () => {
+      const open = button.getAttribute('aria-expanded') !== 'true';
+      button.setAttribute('aria-expanded', String(open));
+      button.setAttribute('aria-label', open ? 'Cerrar navegación' : 'Abrir navegación');
+      header.dataset.open = String(open);
+    });
+    nav.addEventListener('click', (event) => {
+      if (event.target instanceof Element && event.target.closest('a')) close();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') close(true);
+    });
+    document.addEventListener('click', (event) => {
+      if (event.target instanceof Node && !header.contains(event.target)) close();
+    });
+    header.addEventListener('focusout', (event) => {
+      if (event.relatedTarget instanceof Node && !header.contains(event.relatedTarget)) close();
+    });
+    matchMedia('(min-width: 881px)').addEventListener('change', () => close());
+  }
+</script>
+<style>
+  .site-header { position: sticky; top: 0; z-index: 20; background: var(--color-bg); border-bottom: 1px solid var(--color-border); }
+  .header-inner { min-height: 6rem; display: flex; justify-content: space-between; align-items: center; gap: var(--space-6); }
+  .brand { display: flex; flex-direction: column; text-decoration: none; flex-shrink: 0; width: min(200px, 50vw); }
+  nav { display: flex; align-items: center; gap: var(--space-6); }
+  .nav-link { font-size: 0.8rem; font-weight: 550; padding-block: var(--space-3); text-decoration: none; }
+  .nav-link:hover { color: var(--color-primary); }
+  .nav-cta { border: 1px solid var(--color-text); padding: 0.55rem 1rem; display: flex; gap: var(--space-5); font-size: 0.8rem; font-weight: 600; text-decoration: none; border-radius: var(--radius-sm); }
+  .nav-cta:hover { color: white; background: var(--color-text); }
+  .menu-toggle { display: none; align-items: center; gap: var(--space-3); min-height: 44px; border: 0; background: transparent; color: var(--color-text); padding: var(--space-3); font-size: 0.8rem; cursor: pointer; }
+  .menu-lines { display: grid; gap: 6px; width: 21px; }
+  .menu-lines span { height: 1.5px; background: currentColor; width: 100%; }
+  @media (max-width: 880px) {
+    .header-inner { min-height: 5rem; flex-wrap: wrap; gap: 0; }
+    nav { width: 100%; flex-direction: column; align-items: stretch; gap: 0; padding-block: var(--space-4) var(--space-5); }
+    .nav-link { padding: var(--space-3) 0; }
+    .nav-cta { margin-top: var(--space-3); justify-content: space-between; min-height: 44px; }
+    [data-enhanced='true'] .menu-toggle { display: flex; }
+    [data-enhanced='true']:not([data-open='true']) nav { display: none; }
+  }
+</style>

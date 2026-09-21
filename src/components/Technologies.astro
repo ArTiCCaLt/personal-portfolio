@@ -1,0 +1,18 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import { technologies } from '../data/experience';
+---
+<section class="section" aria-labelledby="technologies-title">
+  <div class="container">
+    <SectionHeader label="05 / Herramientas de trabajo" title="La tecnología al servicio del problema." id="technologies-title" description="Elijo una arquitectura proporcional al problema y al tamaño del producto." />
+    <dl>{technologies.map((group) => <div><dt>{group.title}</dt><dd>{group.items.join(' · ')}</dd></div>)}</dl>
+  </div>
+</section>
+<style>
+  dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-7); margin: 0; }
+  dl > div { padding-top: var(--space-5); border-top: 1px solid var(--color-border); }
+  dt { font-size: 0.95rem; font-weight: 650; }
+  dd { margin: var(--space-3) 0 0; color: var(--color-muted); font-size: 0.85rem; }
+  @media (max-width: 760px) { dl { grid-template-columns: 1fr 1fr; gap: var(--space-6); } }
+  @media (max-width: 400px) { dl { grid-template-columns: 1fr; } }
+</style>

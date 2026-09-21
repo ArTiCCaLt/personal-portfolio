@@ -1,0 +1,54 @@
+---
+import fontUrl from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { profile, productionBranch } from '../../portfolio.config.mjs';
+
+interface Props { title?: string; description?: string; noindex?: boolean; }
+const {
+  title = `${profile.name} — ${profile.role}`,
+  description = 'Desarrollador de software y consultor tecnológico especializado en .NET, React, TypeScript, APIs, bases de datos y soluciones web.',
+  noindex = false,
+} = Astro.props;
+const canonical = Astro.site && !noindex ? new URL(Astro.url.pathname, Astro.site) : undefined;
+const preview = process.env.CF_PAGES_BRANCH && process.env.CF_PAGES_BRANCH !== productionBranch;
+const indexable = Boolean(Astro.site) && !preview && !noindex;
+const socialImage = Astro.site ? new URL('/social-card.png', Astro.site).href : undefined;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="preload" href={fontUrl} as="font" type="font/woff2" crossorigin="anonymous" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={indexable ? 'index, follow' : 'noindex, nofollow'} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="Diego Rangel · Ramdren" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {socialImage && <>
+      <meta property="og:image" content={socialImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content="Diego Rangel. Software Developer & Technology Consultant. Ramdren, Software Engineering." />
+    </>}
+    <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <Header />
+    <main id="contenido" tabindex="-1"><slot /></main>
+    <Footer />
+  </body>
+</html>
