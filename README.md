@@ -1,6 +1,6 @@
 # Diego Rangel · Ramdren
 
-Portafolio profesional en español de Diego Rangel, **Software Developer & Technology Consultant**. Ramdren es su marca de ingeniería de software.
+Portafolio profesional en español de Diego Rangel, **Software Developer & Technology Consultant**. Ramdren es mi marca de ingeniería de software.
 
 ## Desarrollo
 
